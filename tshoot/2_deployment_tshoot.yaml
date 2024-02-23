@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tshoot-frontend
+  name: tshoot-frontend
+  namespace: tshoot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tshoot-frontend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tshoot-frontend
+    spec:
+      containers:
+      - image: quay.io/rh_ee_swongpai/py-http-call:52f987b597c5e2425cadhellof8091150
+        name: tshoot-frontend
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL

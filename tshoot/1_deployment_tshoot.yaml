@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tshoot-app
+  name: tshoot-app
+  namespace: tshoot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tshoot-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tshoot-app
+    spec:
+      containers:
+      - image: quay.io/rh_ee_swongpai/py-http-call:52f987b597c5e2425cad791d32060cbdf8091150
+        name: tshoot-app
+        resources:
+          limits:
+            cpu: 500m
+            memory: 3Gi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL

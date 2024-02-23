@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tshoot-app-3
+  name: tshoot-app-3
+  namespace: tshoot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tshoot-app-3
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tshoot-app-3
+    spec:
+      containers:
+      - image: quay.io/rh_ee_swongpai/py-http-call:52f987b597c5e2425cad791d32060cbdf8091150
+        name: tshoot-app-3
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        volumeMounts:
+        - name: secret-volume
+          mountPath: /etc/secret
+        - name: configmap-volume
+          mountPath: /etc/configmap
+        securityContext:
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: youmissme
+      - name: configmap-volume
+        configMap:
+          name: imissyou

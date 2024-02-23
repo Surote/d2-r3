@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: min-quota
+  namespace: tshoot
+spec:
+  hard:
+    pods: '10'
+    limits.cpu: '2'
+    limits.memory: 2Gi
+
