@@ -27,7 +27,7 @@ spec:
             memory: 3Gi
           requests:
             cpu: 50m
-            memory: 64Mi
+            memory: 3Gi
         securityContext:
           seccompProfile:
             type: RuntimeDefault
